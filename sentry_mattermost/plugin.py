@@ -20,10 +20,8 @@
 
 import json
 import urllib2
-import operator
 
 from django import forms
-from django.db.models import Q
 from sentry import tagstore
 from sentry.plugins.bases import notify
 
@@ -48,7 +46,7 @@ def get_tags(event):
     if not tag_list:
         return ()
 
-    return ((tagstore.get_tag_key_label(k), tagstore.get_tag_value_label(k, v)) 
+    return ((tagstore.get_tag_key_label(k), tagstore.get_tag_value_label(k, v))
             for k, v in tag_list)
 
 
@@ -68,7 +66,7 @@ class PayloadFactory:
             "title": group.message_short.encode('utf-8'),
             "link": group.get_absolute_url(),
             "culprit": group.culprit.encode('utf-8'),
-            "project": get_project_full_name(project).encode('utf-8')
+            "project": project.name
         }
 
         if plugin.get_option('include_rules', project):
