@@ -20,10 +20,8 @@
 
 import json
 import urllib2
-import operator
 
 from django import forms
-from django.db.models import Q
 from sentry import tagstore
 from sentry.plugins.bases import notify
 
@@ -48,7 +46,7 @@ def get_tags(event):
     if not tag_list:
         return ()
 
-    return ((tagstore.get_tag_key_label(k), tagstore.get_tag_value_label(k, v)) 
+    return ((tagstore.get_tag_key_label(k), tagstore.get_tag_value_label(k, v))
             for k, v in tag_list)
 
 
