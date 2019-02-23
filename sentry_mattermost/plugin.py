@@ -66,7 +66,7 @@ class PayloadFactory:
             "title": group.message_short.encode('utf-8'),
             "link": group.get_absolute_url(),
             "culprit": group.culprit.encode('utf-8'),
-            "project": get_project_full_name(project).encode('utf-8')
+            "project": project.name
         }
 
         if plugin.get_option('include_rules', project):
