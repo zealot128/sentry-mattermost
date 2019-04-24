@@ -53,7 +53,7 @@ def get_tags(event):
 class PayloadFactory:
     @classmethod
     def render_text(cls, params):
-        template = "__{project}__\n__[{title}]({link})__ \n{culprit}\n"
+        template = "__{project}__|__{env}__\n__[{title}]({link})__ \n{culprit}\n"
         return template.format(**params)
 
     @classmethod
@@ -66,7 +66,8 @@ class PayloadFactory:
             "title": group.message_short.encode('utf-8'),
             "link": group.get_absolute_url(),
             "culprit": group.culprit.encode('utf-8'),
-            "project": project.name
+            "project": project.name,
+            "env": event.get_environment().name
         }
 
         if plugin.get_option('include_rules', project):
