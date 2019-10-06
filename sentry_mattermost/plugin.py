@@ -84,6 +84,8 @@ class PayloadFactory:
             "icon_url": "https://myovchev.github.io/sentry-slack/images/logo32.png", #noqa
             "text": text
         }
+        if plugin.get_option('channel', project):
+            payload["channel"] = plugin.get_option('channel', project)
         return payload
 
 
@@ -98,6 +100,10 @@ class MattermostOptionsForm(notify.NotificationConfigurationForm):
     webhook = forms.URLField(
         help_text='Incoming Webhook URL',
         widget=forms.URLInput(attrs={'class': 'span8'})
+    )
+    channel = forms.CharField(
+        help_text='Mattermost channel name, leave empty for default channel defined by webhook',
+        widget=forms.TextInput(attrs={'class': 'span8'})
     )
     include_rules = forms.BooleanField(
         help_text='Include triggering rules with notifications',
